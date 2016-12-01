@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 5</title>
+    <script>
+        /**
+         * Функция convertColor (r, g, b) - преобразует цвета из десятичного представления в шестнадцатиричное.
+         * @param {number} r - красная состоявляющая цвета
+         * @param {number} g - зеленая составляющая цвета
+         * @param {number} b - синяя составляющая цвета
+         * @return {string} строковый хэш цвета
+         */
+        function convertColor (r, g, b) {
+            //проверка входных данных
+           /* if (typeof (r) != 'number' || typeof (g) != 'number' || typeof (b) != 'number') {
+                console.log("Some parameter is not a number");
+                return NaN;
+            }*/
+            if (isNaN (r * g * b)) {
+                console.log("Some parameter is not a number");
+                return NaN;
+            }
+            if ((r > 255) || (g > 255) || (b > 255) || (r < 0) || (g < 0) || (b < 0)) {
+                console.log("Parameters should be from 0 to 255");
+                return NaN;
+            }
+            return "#" + r.toString(16) + g.toString(16) + b.toString(16);
+        }
+        console.log(convertColor(34, 25, 201));
+
+
+    </script>
+</head>
+<body>
+    <h2>Домашняя работа 5</h2>
+</body>
+</html>
