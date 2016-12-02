@@ -17,22 +17,115 @@
                 console.log("Some parameter is not a number");
                 return NaN;
             }*/
-            if (isNaN (r * g * b)) {
-                console.log("Some parameter is not a number");
+            if (isNaN (r) || isNaN (g) || isNaN (b) ) {
+                console.log("ERROR: Some parameter is not a number");
                 return NaN;
             }
             if ((r > 255) || (g > 255) || (b > 255) || (r < 0) || (g < 0) || (b < 0)) {
-                console.log("Parameters should be from 0 to 255");
+                console.log("ERROR: Parameters should be from 0 to 255");
                 return NaN;
             }
             return "#" + r.toString(16) + g.toString(16) + b.toString(16);
         }
-        console.log(convertColor(34, 25, 201));
+        console.log(convertColor(34, 25, 211));
 
-
+        /**
+         * Функция convertNumber (num) - преобразует число в объект
+         * @param {number} num - преобразуемое число
+         * @return {object}
+         */
+         function convertNumber (num) {
+            if (isNaN(num) || (num > 999) || (num < 0)) {
+                console.log("ERROR: Incorrect number");
+                return NaN;
+            }
+            num = String(num);
+            NumObject = {
+                'единицы': +num.charAt(2),
+                'десятки': +num.charAt(1),
+                'сотни': +num.charAt(0)
+            };
+            return NumObject;
+        }
+        console.log(convertNumber(245));
+        /**
+         * Функция objectToQueryString (some_obj) - преобразует объект в строку запроса
+         * @param {object} some_obj - входящий объект
+         * @return {string} - сформированный запрос в виде строки
+         */
+        function objectToQueryString (some_obj) {
+            if (some_obj !== null && typeof(some_obj) === 'object'){  //проверка на корректность входных данных
+                var stringQuery, arrStr = [];
+                for (var i in some_obj) {
+                    arrStr.push(i + "=" + some_obj[i]); //помешаем пару свойство = знвчение в конец массива
+                }
+                stringQuery = arrStr.join("&"); //преобразуем массив в строку с помощью разделителя &
+                return stringQuery;
+            } else {
+                console.log("ERROR: Parameter is missing");
+                return NaN;
+            }
+        }
+        var userObj = {
+            name: 'Ivan',
+            age: 31,
+            country: 'Russia'
+        };
+        console.log(objectToQueryString(userObj));
     </script>
 </head>
 <body>
     <h2>Домашняя работа 5</h2>
+    <script>
+        //дополнительное задание
+        /**
+         * Функция printTime () - выводит время со склонениями часов и минут
+         * @param {number} hour - часы
+         * @param {number} min минуты
+         * @return timeStr - строка для вывода времени
+         */
+        function printTime (hour, min) {
+            var str_hour = "", str_min = "";
+            var checkH = hour % 10; //определяем остаток от деления количества минут на 10
+            switch (checkH) {
+                case 1:
+                    str_hour = " час ";
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    str_hour = " часа ";
+                    break;
+                default:
+                    str_hour = " часов ";
+            }
+            var checkM = min % 10; //определяем остаток от деления количества минут на 10
+            switch (checkM) { 
+                case 1:
+                    str_min = " минута "; //(!!)Не правильно работает для второго десятка (11 - 14) минут  :(
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    str_min = " минуты ";
+                    break;
+                default:
+                    str_min = " минут ";
+            }
+            return hour + str_hour + min + str_min;
+        }
+        var d = new Date;
+        var hh = d.getHours(),
+            mm = d.getMinutes();
+        document.write("<b>Текущее время:</b> " + printTime(hh, mm)); // вывод текущего времени
+        document.write("<br><hr>Тесты:<br>" + printTime(21, 41)); // вывод времением вида "час - минута"
+        document.write("<br>" + printTime(22, 42)); // вывод времением вида "часа - минуты"
+        document.write("<br>" + printTime(20, 45)); // вывод времением вида "часов - минут"
+        document.write("<br>" + printTime(20, 6)); // вывод времением вида "часов - минут"
+        document.write("<br>" + printTime(20, 22)); // вывод времением вида "часов - минут"
+        
+        
+
+    </script>
 </body>
 </html>
